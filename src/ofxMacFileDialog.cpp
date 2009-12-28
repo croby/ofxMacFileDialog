@@ -14,7 +14,7 @@
 
 #include "ofxMacFileDialog.h"
 
-CFURLRef GetOpenDialogForUser(kDialogType type, char* message)
+CFURLRef GetOpenDialogForUser(kDialogType type, char* title, char* message)
 {
 	NavDialogCreationOptions dialogOptions;
 	NavDialogRef dialog = NULL;
@@ -29,11 +29,16 @@ CFURLRef GetOpenDialogForUser(kDialogType type, char* message)
 	
 	dialogOptions.optionFlags = kNavNoTypePopup + kNavSupportPackages + kNavAllowOpenPackages;
 
+	CFAllocatorRef alloc_default = kCFAllocatorDefault;  // = NULL;
+	
+	if (title != NULL) {
+		CFStringRef cftitle = CFStringCreateWithCString(alloc_default,title,kCFStringEncodingMacRoman);
+		dialogOptions.windowTitle = cftitle;
+	}
+	
 	if (message != NULL) {
-		CFStringEncoding encoding = kCFStringEncodingMacRoman; // =  0;
-		CFAllocatorRef alloc_default = kCFAllocatorDefault;  // = NULL;
-		CFStringRef cfmessage = CFStringCreateWithCString(alloc_default,message,encoding);
-		dialogOptions.windowTitle = cfmessage;
+		CFStringRef cfmessage = CFStringCreateWithCString(alloc_default,message,kCFStringEncodingMacRoman);
+		dialogOptions.message = cfmessage;
 	}
 	
 	
@@ -80,10 +85,10 @@ CantGetNavOptions:
 
 
 //--------------------------------------------------------------
-string ofxMacFileDialog::getStringFromDialog(kDialogType type, char* message) {
+string ofxMacFileDialog::getStringFromDialog(kDialogType type, char* windowTitle, char* windowMessage) {
 	CFURLRef cfUrl = NULL;
 	
-	cfUrl = GetOpenDialogForUser(type, message);
+	cfUrl = GetOpenDialogForUser(type, windowTitle, windowMessage);
 	
 	CFStringRef cfString = NULL;
 	

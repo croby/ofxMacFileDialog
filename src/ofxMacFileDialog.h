@@ -18,5 +18,5 @@ enum kDialogType {
 
 class ofxMacFileDialog {
 public:
-	string getStringFromDialog(kDialogType type, char* message, char* title);
+	string getStringFromDialog(kDialogType type, char* windowTitle, char* windowMessage);
 };
