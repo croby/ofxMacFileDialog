@@ -25,7 +25,7 @@ CFURLRef GetOpenDialogForUser(kDialogType type, char* title, char* message)
 	
 	// Get the standard set of defaults
 	status = NavGetDefaultDialogCreationOptions(&dialogOptions);
-	require_noerr( status, CantGetNavOptions );
+//	require_noerr( status, CantGetNavOptions );
 	
 	dialogOptions.optionFlags = kNavNoTypePopup + kNavSupportPackages + kNavAllowOpenPackages;
 

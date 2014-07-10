@@ -8,7 +8,8 @@
  */
 
 #include <string>
-
+#include <CoreFoundation/CoreFoundation.h>
+#include <Carbon/Carbon.h>
 using namespace std;
 
 enum kDialogType {
